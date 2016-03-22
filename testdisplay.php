@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+ <?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,16 +67,21 @@
 			starttime2=starttime2.substring(0,10)+" "+starttime2.substring(11,16)+":00";
 			endtime1=endtime1.substring(0,10)+" "+endtime1.substring(11,16)+":00";
 			endtime2=endtime2.substring(0,10)+" "+endtime2.substring(11,16)+":00";
-
-        if(array[i]['title']!= event[a]['title']){
+			var temp1=array[i]['title'];
+			var temp2=event[a]['title'];
+			var temptitle1=temp1.substring(0,16);
+			var temptitle2=temp2.substring(0,16);
+		//	console.log(temptitle1);
+			//console.log(temptitle2);
+        if(temptitle1!=temptitle2){
 					//console.log(Date(array[i].start._i));
 					//console.log(Date(event[a].end));
             if(!(comptime(starttime1,endtime2)==-1 || comptime(endtime1,starttime2)==1)){
 								console.log("find here");
-								console.log(Date(starttime1));
+							//	console.log(Date(starttime1));
 								console.log(starttime2);
 								console.log(endtime1);
-								console.log(Date(endtime2));
+								//console.log(Date(endtime2));
                 return true;
             }
 					}
@@ -195,15 +200,16 @@ function in_array(stringToSearch, arrayToSearch) {
 
 function addevent(name,time,date,location,start,end)
 {
+
 	var newevent=new Array();
 	var datearray=getdate(date);
 	var gap=daysBetween(end,start);
 		tempname=name;
 	 temptimea=time;
 	 tempdatea=date;
-	 templocationa=location;
-	//console.log("time gap is ");
-	//console.log(gap);
+
+	//console.log("temp location is ");
+	//console.log(templocationa);
 	var uom;
 	for(var i=1;i<gap;i++)
 	{
@@ -244,11 +250,11 @@ function addevent(name,time,date,location,start,end)
 			var namestring=name.toString();
 			var stringlength=namestring.length;
 			var neweventa={
-			title  : namestring.substring(1,stringlength-1),
+			title  : namestring.substring(1,stringlength-1)+"----"+location,
 			start  : starttime.toString(),
 			end    : endtime.toString()
 		}
-		//console.log(neweventa);
+		console.log(neweventa.title);
 			//console.log(uom);
 			//console.log(time);
 			eventarray.push(neweventa);
@@ -269,7 +275,7 @@ function deleteevent(name,time,date,location,start,end)
 	for(var i=0;i<eventarray.length;i++)
 	{
 		console.log(eventarray[i]);
-		if(eventarray[i]['title']==namestring.substring(1,stringlength-1))
+		if(eventarray[i]['title']==namestring.substring(1,stringlength-1)+"----"+location)
 		{
 			console.log("item found");
 					eventarray.splice(i,1);
@@ -297,10 +303,12 @@ function hidecontent(id)
 	}
 	function courseselect(id,date,time,location,coursename)
 	{
+
 		console.log(id);
 		console.log(" course get clicked");
 		tempid=id;
 		tempcoursename=coursename;
+		templocationa=location;
 		console.log("date is ");
 		var datestring=date.toString();
 		var stringlength=datestring.length;
