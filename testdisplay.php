@@ -11,6 +11,12 @@
 		var eventarray=new Array;
         var startdate='2016-02-29';
         var enddate='2016-03-04';
+				var tempname;
+				var temptimea;
+				var tempdatea;
+				var templocationa;
+				var tempid;
+				var tempcoursename;
         $(document).ready(function() {
 
     // page is now ready, initialize the calendar...
@@ -23,8 +29,10 @@
         	right: 'month,agendaWeek,agendaDay'
 
         },
+				minTime: "08:00:00",
+        maxTime: "22:00:00",
         eventSources:[eventarray],
-        eventOverlap:true,
+        eventOverlap:false,
     });
     $('#calendar').fullCalendar( 'changeView', 'agendaWeek');
 
@@ -35,22 +43,69 @@
         	console.log(eventarray);
         	$('#calendar').fullCalendar('removeEvents');
         	$('#calendar').fullCalendar('addEventSource', eventarray);
-        	var bool=isOverlapping();
+        	var bool=isOverlapping(eventarray);
         	console.log("over lapping is ");
         	console.log(bool);
+					if(bool==true){
+						//deleteevent(tempname,temptimea,tempdatea,templocationa,"2016-05-01","2016-08-31")
+						//hidecontent(tempid);
+						alert("course time conflict!");
+						courseselect(tempid,tempdatea,temptimea,templocationa,tempcoursename);
+					}
         	$('#calendar').fullCalendar('rerenderEvents');
         }
-        function isOverlapping(){
+        function isOverlapping(event){
     // "calendar" on line below should ref the element on which fc has been called
     var array = $('#calendar').fullCalendar('clientEvents');
 	for(i in array){
-        if(array[i].id != event.id){
-            if(!(Date(array[i].start) >= Date(event.end) || Date(array[i].end) <= Date(event.start))){
+		for(a in event){
+			var starttime1=array[i].start._i;
+			var endtime1=array[i].end._i;
+			var starttime2=event[a].start;
+			var endtime2=event[a].end;
+			starttime1=starttime1.substring(0,10)+" "+starttime1.substring(11,16)+":00";
+			starttime2=starttime2.substring(0,10)+" "+starttime2.substring(11,16)+":00";
+			endtime1=endtime1.substring(0,10)+" "+endtime1.substring(11,16)+":00";
+			endtime2=endtime2.substring(0,10)+" "+endtime2.substring(11,16)+":00";
+
+        if(array[i]['title']!= event[a]['title']){
+					//console.log(Date(array[i].start._i));
+					//console.log(Date(event[a].end));
+            if(!(comptime(starttime1,endtime2)==-1 || comptime(endtime1,starttime2)==1)){
+								console.log("find here");
+								console.log(Date(starttime1));
+								console.log(starttime2);
+								console.log(endtime1);
+								console.log(Date(endtime2));
                 return true;
             }
+					}
         }
     }
     return false;
+}
+function comptime(beginTime,endTime) {
+  //  var beginTime = "2009-09-21 00:00:00";
+  //  var endTime = "2009-09-21 00:00:01";
+    var beginTimes = beginTime.substring(0, 10).split('-');
+    var endTimes = endTime.substring(0, 10).split('-');
+
+    beginTime = beginTimes[1] + '-' + beginTimes[2] + '-' + beginTimes[0] + ' ' + beginTime.substring(10, 19);
+    endTime = endTimes[1] + '-' + endTimes[2] + '-' + endTimes[0] + ' ' + endTime.substring(10, 19);
+
+    //alert(beginTime + "aaa" + endTime);
+    //alert(Date.parse(endTime));
+    //alert(Date.parse(beginTime));
+    var a = (Date.parse(endTime) - Date.parse(beginTime)) / 3600 / 1000;
+    if (a < 0) {
+        return -1;//endTime小!
+    } else if (a > 0) {
+        return 1; //endTime da!
+    } else if (a == 0) {
+      return 0;
+    } else {
+        return 'exception'
+    }
 }
 function update(name,time,date,location,type)
 {
@@ -63,18 +118,18 @@ function update(name,time,date,location,type)
 		deleteevent(name,start,end);
 	}
 }
-function daysBetween(DateOne,DateTwo)  
-{   
-	var OneMonth = DateOne.substring(5,DateOne.lastIndexOf ('-'));  
-	var OneDay = DateOne.substring(DateOne.length,DateOne.lastIndexOf ('-')+1);  
-	var OneYear = DateOne.substring(0,DateOne.indexOf ('-'));  
+function daysBetween(DateOne,DateTwo)
+{
+	var OneMonth = DateOne.substring(5,DateOne.lastIndexOf ('-'));
+	var OneDay = DateOne.substring(DateOne.length,DateOne.lastIndexOf ('-')+1);
+	var OneYear = DateOne.substring(0,DateOne.indexOf ('-'));
 
-	var TwoMonth = DateTwo.substring(5,DateTwo.lastIndexOf ('-'));  
-	var TwoDay = DateTwo.substring(DateTwo.length,DateTwo.lastIndexOf ('-')+1);  
-	var TwoYear = DateTwo.substring(0,DateTwo.indexOf ('-'));  
+	var TwoMonth = DateTwo.substring(5,DateTwo.lastIndexOf ('-'));
+	var TwoDay = DateTwo.substring(DateTwo.length,DateTwo.lastIndexOf ('-')+1);
+	var TwoYear = DateTwo.substring(0,DateTwo.indexOf ('-'));
 
-	var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);   
-	return Math.abs(cha);  
+	var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);
+	return Math.abs(cha);
 }
 function transfer(str)
 {
@@ -143,43 +198,47 @@ function addevent(name,time,date,location,start,end)
 	var newevent=new Array();
 	var datearray=getdate(date);
 	var gap=daysBetween(end,start);
+		tempname=name;
+	 temptimea=time;
+	 tempdatea=date;
+	 templocationa=location;
 	//console.log("time gap is ");
 	//console.log(gap);
 	var uom;
 	for(var i=1;i<gap;i++)
 	{
-		Date.prototype.format = function(format)  
-		{  
-			var o =  
-			{  
-        "M+" : this.getMonth()+1, //month  
-        "d+" : this.getDate(),    //day  
-        "h+" : this.getHours(),   //hour  
-        "m+" : this.getMinutes(), //minute  
-        "s+" : this.getSeconds(), //second  
-        "q+" : Math.floor((this.getMonth()+3)/3),  //quarter  
-        "S" : this.getMilliseconds() //millisecond  
-    }  
-    if(/(y+)/.test(format))  
-    	format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));  
-    for(var k in o)  
-    	if(new RegExp("("+ k +")").test(format))  
-    		format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));  
-    	return format;  
-    } 
+		Date.prototype.format = function(format)
+		{
+			var o =
+			{
+        "M+" : this.getMonth()+1, //month
+        "d+" : this.getDate(),    //day
+        "h+" : this.getHours(),   //hour
+        "m+" : this.getMinutes(), //minute
+        "s+" : this.getSeconds(), //second
+        "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+        "S" : this.getMilliseconds() //millisecond
+    }
+    if(/(y+)/.test(format))
+    	format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+    	if(new RegExp("("+ k +")").test(format))
+    		format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+    	return format;
+    }
     //console.log("i is ");
-    //console.log(i); 
+    //console.log(i);
     //	console.log("start is ");
     //	console.log(start);
-     uom = new Date(new Date(start)-0+i*86400000); 
+     uom = new Date(new Date(start)-0+i*86400000);
 		//console.log(uom.getDay());
-		//console.log(uom); 
-		
+		//console.log(uom);
+
 		if(in_array(uom.getDay(),datearray))
 		{
 			//console.log("the date is in array and will add in array");
 			uomtemp1=uom;
-			uomtemp=uomtemp1.format("yyyy-MM-dd"); 
+			uomtemp=uomtemp1.format("yyyy-MM-dd");
 			var starttime=uomtemp+"T"+time.substring(0,5);
 			var endtime=uomtemp+"T"+time.substring(6,11);
 			var namestring=name.toString();
@@ -240,7 +299,8 @@ function hidecontent(id)
 	{
 		console.log(id);
 		console.log(" course get clicked");
-
+		tempid=id;
+		tempcoursename=coursename;
 		console.log("date is ");
 		var datestring=date.toString();
 		var stringlength=datestring.length;
@@ -271,10 +331,6 @@ function hidecontent(id)
 			deleteevent(coursename,timea,datea,locationa,"2016-05-01","2016-08-31");
 		}
 	}
-	function addintocourse()
-	{}
-	function deletecourse()
-	{}
 </script>
 <style>
 	.clearFloat { clear: both; }

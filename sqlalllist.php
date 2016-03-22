@@ -48,7 +48,7 @@
 		}
 		$sql = "CREATE TABLE $tablename (
 		subject VARCHAR(10) NOT NULL,
-		catalog_number INT(5) NOT NULL,
+		catalog_number VARCHAR(5) NOT NULL,
 		title VARCHAR(30) NOT NULL,
 		reg_date TIMESTAMP
 		)";
@@ -60,7 +60,7 @@
 
 		mysqli_close($conn);
 	}
-//	createallcoursetable('allcourselist');
+	//createallcoursetable('allcourselist');
 	//createallcoursetable('courses');
 	function createdatabase()
 	{
@@ -102,6 +102,6 @@
 
 		$conn->close();
 	}
-//	deletetable("courses");
+	//deletetable("allcourselist");
 	//createdatabase();
 	?>
