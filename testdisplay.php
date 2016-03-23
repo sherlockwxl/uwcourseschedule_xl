@@ -432,6 +432,10 @@ function hidecontent(id)
 	.hidden{
 		display:none;
 	}
+	.search{
+		float:left;
+		position:relative;
+	}
 
 
 
@@ -521,8 +525,16 @@ function hidecontent(id)
 							$temp1=$value['enrollment_capacity'];
 							$temp2=$value['enrollment_total'];
 							$remain=$temp1-$temp2;
-							echo "remaining seats : $remain";
-							echo "<br>";
+							$num=(int)$remain;
+							//echo "num is $num";
+							if($num<=20)
+							{
+								echo '<span style="color:red">';
+								//remaining seats : $remain';
+							}
+
+								echo "remaining seats : $remain";
+								echo "<br>";
 							$temp=$value['waiting_total'];
 							echo "waiting list : $temp";?>
 						</div>
@@ -577,8 +589,16 @@ function hidecontent(id)
 							$temp1=$value['enrollment_capacity'];
 							$temp2=$value['enrollment_total'];
 							$remain=$temp1-$temp2;
-							echo "remaining seats : $remain";
-							echo "<br>";
+							$num=(int)$remain;
+							//echo "num is $num";
+							if($num<=20)
+							{
+								echo '<span style="color:red">';
+								//remaining seats : $remain';
+							}
+
+								echo "remaining seats : $remain";
+								echo "<br>";
 							$temp=$value['waiting_total'];
 							echo "waiting list : $temp";?>
 						</div>
@@ -630,8 +650,16 @@ function hidecontent(id)
 							$temp1=$value['enrollment_capacity'];
 							$temp2=$value['enrollment_total'];
 							$remain=$temp1-$temp2;
-							echo "remaining seats : $remain";
-							echo "<br>";
+							$num=(int)$remain;
+							//echo "num is $num";
+							if($num<=10)
+							{
+								echo '<span style="color:red">';
+								//remaining seats : $remain';
+							}
+
+								echo "remaining seats : $remain";
+								echo "<br>";
 							$temp=$value['waiting_total'];
 							echo "waiting list : $temp";?>
 						</div>
@@ -651,9 +679,24 @@ function hidecontent(id)
 	}
 	?>
 
-
+	<div class="search">
+		    Type in the Professor Name to know his rating!
+		<script>
+  (function() {
+    var cx = '012128436757510335578:2zcgi-uoay4';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+</div>
 	<div id='calendar'></div>
-	<!<input type="button" onclick="updateevent()" value="Add new table">
+
 
 </body>
 </html>
