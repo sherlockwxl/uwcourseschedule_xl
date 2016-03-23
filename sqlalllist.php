@@ -12,7 +12,7 @@
 		coursepre VARCHAR(10) NOT NULL,
 		coursenumber VARCHAR(10) NOT NULL,
 		coursetype VARCHAR(10) NOT NULL,
-		courselecnum VARCHAR(5) NOT NULL,
+		courselecnum VARCHAR(10) NOT NULL,
 		coursetime VARCHAR(30) NOT NULL,
 		coursedate VARCHAR(5) NOT NULL,
 		coursename VARCHAR(50) NOT NULL,
