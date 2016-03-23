@@ -300,7 +300,9 @@ function hidecontent(id)
 	if(document.getElementById(id).style.color=="black"||document.getElementById(id).style.color==""){
 		document.getElementById(id).style.display="none";}
 		console.log("hide called");
+
 	}
+
 	function courseselect(id,date,time,location,coursename)
 	{
 
@@ -363,16 +365,19 @@ function hidecontent(id)
 	{
 		float:left;
 		position:relative;
+
 	}
 	.tut
 	{
 		float:left;
 		position:relative;
+
 	}
 	.tst
 	{
 		float:left;
 		position:relative;
+
 	}
 
 	.lec:hover {
@@ -390,7 +395,7 @@ function hidecontent(id)
 	.coursename{
 		float:left;
 		position:relative;
-		left: 2px;
+
 		width:400px;
 		font-size: 15pt;
 		font-weight:bold;
@@ -400,7 +405,7 @@ function hidecontent(id)
 	.coursenumber{
 		float:left;
 		position:relative;
-		left: 2px;
+
 		width: 125px;
 
 
@@ -408,7 +413,7 @@ function hidecontent(id)
 	.time{
 		float:left;
 		position:relative;
-		left: 2px;
+
 		width: 125px;
 
 
@@ -418,7 +423,7 @@ function hidecontent(id)
 		margin-left: 125px;
 		float:left;
 		position:relative;
-		left: 2px;
+
 		width: 125px;
 	}
 	.else
@@ -426,7 +431,7 @@ function hidecontent(id)
 		margin-left: 125px;
 		float:left;
 		position:relative;
-		left: 2px;
+
 		width: 125px;
 	}
 	.hidden{
@@ -436,7 +441,11 @@ function hidecontent(id)
 		float:left;
 		position:relative;
 	}
-
+	.space{
+		float:left;
+		position:relative;
+		margin-top:10px;
+	}
 
 
 </style>
@@ -468,7 +477,8 @@ function hidecontent(id)
 	{
 		global $displaynumber;
 		?>
-
+		<div class="space">
+		</div>
 		<div class="coursename">
 			<?php
 			$name= $array[0]['coursepre'].$array[0]['coursenumber'];

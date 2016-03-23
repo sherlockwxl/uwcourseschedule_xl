@@ -10,9 +10,9 @@
 		$sql = "CREATE TABLE $tablename (
 		id INT(6) NOT NULL,
 		coursepre VARCHAR(10) NOT NULL,
-		coursenumber INT(10) NOT NULL,
+		coursenumber VARCHAR(10) NOT NULL,
 		coursetype VARCHAR(10) NOT NULL,
-		courselecnum INT(5) NOT NULL,
+		courselecnum VARCHAR(5) NOT NULL,
 		coursetime VARCHAR(30) NOT NULL,
 		coursedate VARCHAR(5) NOT NULL,
 		coursename VARCHAR(50) NOT NULL,
@@ -48,7 +48,7 @@
 		}
 		$sql = "CREATE TABLE $tablename (
 		subject VARCHAR(10) NOT NULL,
-		catalog_number VARCHAR(5) NOT NULL,
+		catalog_number VARCHAR(10) NOT NULL,
 		title VARCHAR(30) NOT NULL,
 		reg_date TIMESTAMP
 		)";
@@ -103,5 +103,6 @@
 		$conn->close();
 	}
 	//deletetable("allcourselist");
+//	deletetable("courses");
 	//createdatabase();
 	?>

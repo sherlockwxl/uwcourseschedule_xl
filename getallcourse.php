@@ -27,7 +27,7 @@ include "sql.php";
 	$responsearray=array();
 	for($i=0;$i<sizeof($result['data']);$i++)
 	{
-		$responsearray[$i]=array();
+		//$responsearray[$i]=array();
 		$responsearray[$i]=$result['data'][$i];
 	}
 	//print_r($responsearray);

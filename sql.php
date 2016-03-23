@@ -29,6 +29,15 @@
 		$temparray=array();
 		for($i=0;$i<sizeof($dataarray[$num]);$i++)
 		{
+				$dataarray[$num][$i]=str_replace(",","",$dataarray[$num][$i]); //替换英文逗号,
+				$dataarray[$num][$i]=str_replace("<","",$dataarray[$num][$i]); //替换英文小破折号<
+				$dataarray[$num][$i]=str_replace(">","",$dataarray[$num][$i]);//替换英文小破折号>
+				$dataarray[$num][$i]=str_replace("'","",$dataarray[$num][$i]);//替换英文单引号 '
+				$dataarray[$num][$i]=str_replace("{","",$dataarray[$num][$i]);//替换英文大括号{
+				$dataarray[$num][$i]=str_replace("}","",$dataarray[$num][$i]);//替换英文大括号}
+				$dataarray[$num][$i]=str_replace("(","",$dataarray[$num][$i]);//替换英文小括号(
+				$dataarray[$num][$i]=str_replace("）","",$dataarray[$num][$i]);//替换英文小括号）
+				htmlentities($dataarray[$num][$i],ENT_QUOTES);//替换英文双引号 "
 			$temparray[]=$dataarray[$num][$i];
 		}
 			//print_r($temparray);
@@ -43,8 +52,18 @@
 		$temparray=array();
 			foreach ($dataarray[$num] as $key => $value) {
 				# code...
-				if($key!='units')
+				if($key!='units'){
+					$value=str_replace(",","",$value); //替换英文逗号,
+  				$value=str_replace("<","",$value); //替换英文小破折号<
+  				$value=str_replace(">","",$value);//替换英文小破折号>
+  				$value=str_replace("'","",$value);//替换英文单引号 '
+  				$value=str_replace("{","",$value);//替换英文大括号{
+  				$value=str_replace("}","",$value);//替换英文大括号}
+  				$value=str_replace("(","",$value);//替换英文小括号(
+  				$value=str_replace("）","",$value);//替换英文小括号）
+  				htmlentities($value,ENT_QUOTES);//替换英文双引号 "
 				$temparray[]=$value;
+			}
 			}
 			//print_r($temparray);
 		return $temparray;
@@ -160,6 +179,12 @@
 	//print_r($testarray);
 	//function search($)
 	//addrecordforlist will add all course list into database named allcourselist
+
+
+
+
+
+
 	function addrecordforlist($dataarray,$tablename)
 	{
 		$dbname = "myDB";
