@@ -3,17 +3,19 @@
 include "sql.php";
   $username=$_POST['username'];
   $password=$_POST['password'];
-  $response=searchforuser($username,$password);
-  if($response=='false')
+  $response=searchforuser($username,$password,'userdata');
+  if($response==false)
   {
-    header("Location:www.uwcourseschedule.com/loginerror.html");
+  //  header("Location:www.uwcourseschedule.com/loginerror.html");
+  header("Location:./loginerror.html");
   }
   else{
     session_start();
     $_SESSION['userdata']=$response;
     $_SESSION['username']=$username;
     $_SESSION['password']=$password;
-    header("Location:www.uwcourseschedule.com/selectcoursepage.php");
+  //  header("Location:www.uwcourseschedule.com/selectcoursepage.php");
+  header("Location:./selectcoursepage.php?type=2");
   }
 
 

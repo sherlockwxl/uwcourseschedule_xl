@@ -181,6 +181,11 @@ function adduser($username,$password,$tablename)
 	password ,
 	userdataarray)
 	VALUES ('$username','$password','$json');";
+	if ($conn->query($sql) === TRUE) {
+		echo "New records created successfully";
+	} else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 
 
@@ -195,6 +200,11 @@ function updateuser($username,$password,$json,$tablename)
 		die('Could not connect: ' . mysqli_error());
 	}
 	$sql = "UPDATE $tablename SET userdataarray = '$json' WHERE username = '$username' AND password = '$password'";
+	if ($conn->query($sql) === TRUE) {
+		echo "New records update successfully";
+	} else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 }
 
 

@@ -8,6 +8,7 @@
 	<script src='./fullcalendar/lib/moment.min.js'></script>
 	<script src='./fullcalendar/fullcalendar.js'></script>
 	<script type="text/javascript">
+		var logintype=<?php echo $type;?>
 		var eventarray=new Array;
         var startdate='2016-02-29';
         var enddate='2016-03-04';
@@ -380,6 +381,14 @@ function hidecontent(id)
 			deleteevent(coursename,timea,datea,locationa,"2016-05-01","2016-08-31");
 		}
 	}
+
+
+
+	function save()
+	{
+		var events=eventarray;
+		for()
+	}
 </script>
 <style>
 	.clearFloat { clear: both; }
@@ -492,11 +501,17 @@ function hidecontent(id)
 <body>
 	<?php
 	$displaynumber=0;
-
+	$username=$_SESSION['uername'];
+	$password=$_SESSION['password'];
 	$coursearray=$_SESSION['courses'];
+	$type=$_SESSION['type'];
+	if($type==2)
+	{
+		$userdata=$_SESSION['userdata'];
+	}
 //print_r($coursearray);
-	displaymain($coursearray);
-	function displaymain($coursearray)
+	displaymain($coursearray,$type);
+	function displaymain($coursearray,$type)
 	{
 //	echo "display main called ";
 		global $displaynumber;
@@ -509,6 +524,13 @@ function hidecontent(id)
 			//$displaynumber++;
 				?>
 			</div>
+
+			<?php
+		}
+		if($type!=3)
+		{
+			?>
+			<button type="button" onclick="save()">Store your courses!</button>
 			<?php
 		}
 	}
@@ -745,6 +767,7 @@ function hidecontent(id)
 <gcse:search></gcse:search>
 </div>
 	<div id='calendar'></div>
+
 
 
 </body>

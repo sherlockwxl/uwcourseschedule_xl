@@ -1,3 +1,21 @@
+
+<?php
+//there will three type of way to jump to this page
+//www.uwcourseschedule.com/courseselect.php?type=1 means this is a new user and user data is empty, so no need  for load.
+//www.uwcourseschedule.com/courseselect.php?type=2 means this is a existed user and user data is not empty, so  need  for load.
+//www.uwcourseschedule.com/courseselect.php?type=3 means this is a guest login no need for load.(also work for display no save button)
+
+
+
+
+$type=$_GET['type'];
+		session_start();
+		$_SESSION['type']=$type;
+		echo "this time is login as type $type";
+		if($type==2)
+		{
+			$userdata=$_SESSION['userdata'];
+		}?>
 <!DOCTYPE html>
 <html>
 
@@ -49,6 +67,11 @@ function createsubjectoption($number,$courselist)
 		Please choose your courses</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript">
+		var logintype=<?php echo $type;?>//this is the type for your use
+		var logintypenum=parseInt(logintype);
+		if(logintypenum==2){
+		var userdata=JSON.parse('<?php //echo json_encode($userdata);?>');//if type ==2 you will have user data avaialible
+	}
 			var arraylist=JSON.parse('<?php echo json_encode($courselist);?>');
 			function createcatalogoption(subject,number)
 			{
@@ -95,8 +118,8 @@ function createsubjectoption($number,$courselist)
 			?>
 
 			<li class= "courses">
-				Choose the subject: 
-				<?php 
+				Choose the subject:
+				<?php
 				createsubjectoption($i,$courselist);?>
 
 

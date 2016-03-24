@@ -8,7 +8,8 @@ include "sql.php";
   $_SESSION['username']=$username;
   $_SESSION['password']=$password;
   adduser($username,$password,'userdata');
-  header("Location:www.uwcourseschedule.com/selectcoursepage.php");
+  //header("Location:www.uwcourseschedule.com/selectcoursepage.php");
+  header("Location:./selectcoursepage.php?type=1");
 
 
   ?>
