@@ -38,6 +38,67 @@
 
 
 });
+function StringToDate(DateStr)
+{
+
+    var converted = Date.parse(DateStr);
+    var myDate = new Date(converted);
+    if (isNaN(myDate))
+    {
+        //var delimCahar = DateStr.indexOf('/')!=-1?'/':'-';
+        var arys= DateStr.split('-');
+        myDate = new Date(arys[0],--arys[1],arys[2]);
+    }
+    return myDate;
+}
+
+
+
+
+
+
+function comptime(beginTime,endTime) {
+
+  //  var beginTime = "2009-09-21 00:00:00";
+  //  var endTime = "2009-09-21 00:00:01";
+    var beginTimes = beginTime.substring(0, 10).split('-');
+    var endTimes = endTime.substring(0, 10).split('-');
+
+   beginTime = beginTimes[1] + '-' + beginTimes[2] + '-' + beginTimes[0] + ' ' + beginTime.substring(10, 19);
+    endTime = endTimes[1] + '-' + endTimes[2] + '-' + endTimes[0] + ' ' + endTime.substring(10, 19);
+		beginTime =beginTime.replace("-", "/").replace("-", "/");
+		endTime =endTime.replace("-", "/").replace("-", "/");
+    //alert(beginTime + "aaa" + endTime);
+    //alert(Date.parse(endTime));
+    //alert(Date.parse(beginTime));
+
+	//	beginTime=StringToDate(beginTime);
+		//endTime=StringToDate(endTime);
+	//console.log("i is ");
+	//console.log(i);
+	//	console.log("start is ");
+	//	console.log(start);
+//		console.log("new");
+	//	console.log(beginTime);
+		//console.log(endTime);
+    var a = (Date.parse(endTime) - Date.parse(beginTime)) / 3600 / 1000;
+		//console.log("a is ");
+		//console.log(a);
+    if (a < 0) {
+			//console.log("-1");
+        return -1;//endTime小!
+    } else if (a > 0) {
+			//console.log("1");
+        return 1; //endTime da!
+    } else if (a == 0) {
+
+			//console.log("0");
+      return 0;
+    } else {
+			console.log("error");
+        return 'exception'
+    }
+}
         function updateevent()
         {
         	console.log(eventarray);
@@ -89,29 +150,7 @@
     }
     return false;
 }
-function comptime(beginTime,endTime) {
-  //  var beginTime = "2009-09-21 00:00:00";
-  //  var endTime = "2009-09-21 00:00:01";
-    var beginTimes = beginTime.substring(0, 10).split('-');
-    var endTimes = endTime.substring(0, 10).split('-');
 
-    beginTime = beginTimes[1] + '-' + beginTimes[2] + '-' + beginTimes[0] + ' ' + beginTime.substring(10, 19);
-    endTime = endTimes[1] + '-' + endTimes[2] + '-' + endTimes[0] + ' ' + endTime.substring(10, 19);
-
-    //alert(beginTime + "aaa" + endTime);
-    //alert(Date.parse(endTime));
-    //alert(Date.parse(beginTime));
-    var a = (Date.parse(endTime) - Date.parse(beginTime)) / 3600 / 1000;
-    if (a < 0) {
-        return -1;//endTime小!
-    } else if (a > 0) {
-        return 1; //endTime da!
-    } else if (a == 0) {
-      return 0;
-    } else {
-        return 'exception'
-    }
-}
 function update(name,time,date,location,type)
 {
 	if($type==1)
