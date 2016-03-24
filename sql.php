@@ -143,6 +143,60 @@
 
 	}
 
+	function searchforuser($username,$password,$tablename)
+	{
+		$dbname = "myDB";
+		$conn = mysqli_connect("localhost","root","root",$dbname);
+		if (!$conn)
+		{
+			die('Could not connect: ' . mysqli_error());
+		}
+
+		$sql = "SELECT * FROM $tablename WHERE username='$username' AND password='$password' ";
+		$result = $conn->query($sql);
+		;
+		if ($result->num_rows > 0) {
+	    // 输出每行数据
+			$returnarray=array();
+			while($row = $result->fetch_assoc()) {
+			//	print_r($row);
+				$returnarray[]=$row;
+			}
+			return $returnarray;
+		} else {
+			return false;
+		}
+		$conn->close();
+	}
+function adduser($username,$password,$tablename)
+{
+	$json="";
+	$dbname = "myDB";
+	$conn = mysqli_connect("localhost","root","root",$dbname);
+	if (!$conn)
+	{
+		die('Could not connect: ' . mysqli_error());
+	}
+	$sql = "INSERT INTO $tablename (username,
+	password ,
+	userdataarray)
+	VALUES ('$username','$password','$json');";
+}
+
+
+
+function updateuser($username,$password,$json,$tablename)
+{
+
+	$dbname = "myDB";
+	$conn = mysqli_connect("localhost","root","root",$dbname);
+	if (!$conn)
+	{
+		die('Could not connect: ' . mysqli_error());
+	}
+	$sql = "UPDATE $tablename SET userdataarray = '$json' WHERE username = '$username' AND password = '$password'";
+}
+
 
 	function searchforcourse($coursepre,$coursenumber,$tablename)
 	{

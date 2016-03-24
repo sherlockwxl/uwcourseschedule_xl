@@ -57,11 +57,33 @@
 		} else {
 			echo "Error creating database: " . $conn->error;
 		}
+		mysqli_close($conn);
+	}
+		//createallcoursetable('allcourselist');
+	function createusertable($tablename)
+	{
+		$dbname = "myDB";
+		$conn = mysqli_connect("localhost","root","root",$dbname);
+		if (!$conn)
+		{
+			die('Could not connect: ' . mysqli_error());
+		}
+		$sql = "CREATE TABLE $tablename (
+		username VARCHAR(15) NOT NULL,
+		password VARCHAR(25) NOT NULL,
+		userdataarray VARCHAR(150) NOT NULL,
+		reg_date TIMESTAMP
+		)";
+		if ($conn->query($sql) === TRUE) {
+			echo "Database $tablename created successfully";
+		} else {
+			echo "Error creating database: " . $conn->error;
+		}
 
 		mysqli_close($conn);
 	}
-	//createallcoursetable('allcourselist');
-	//createallcoursetable('courses');
+//createusertable('userdata');
+
 	function createdatabase()
 	{
 	$servername = "localhost";

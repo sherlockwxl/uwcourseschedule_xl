@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User login</title>
+  </head>
+  <body>
+  <p>
+    Sorry the user does not exist or wrong password. Please try again or create a new account
+    </p>
+    <form name="LoginForm" method="post" action="search.php">
+    <p>
+    <label for="username" class="label">Quest username:</label>
+    <input id="username" name="username" type="text" class="input" />
+    <p/>
+    <p>
+    <label for="password" class="label">Password:</label>
+    <input id="password" name="password" type="password" class="input" />
+    <p/>
+    <p>
+    <input type="submit" name="submit" value="Click to login" class="left" /><br>
+    <input type="submit" formaction="signup.html" value="Click to sign up" /><br>
+    <input type="submit" formaction="selectcoursepage.php" value="Use uw course schedule without login" /><br>
+
+    </p>
+    </form>
+  </body>
+</html>
