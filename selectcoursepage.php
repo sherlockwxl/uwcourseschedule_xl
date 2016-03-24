@@ -15,6 +15,7 @@ $type=$_GET['type'];
 		if($type==2)
 		{
 			$userdata=$_SESSION['userdata'];
+			print_r($userdata);
 		}?>
 <!DOCTYPE html>
 <html>
@@ -67,10 +68,10 @@ function createsubjectoption($number,$courselist)
 		Please choose your courses</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 		<script type="text/javascript">
-		var logintype=<?php echo $type;?>//this is the type for your use
+		var logintype='<?php echo json_encode($type);?>';//this is the type for your use
 		var logintypenum=parseInt(logintype);
 		if(logintypenum==2){
-		var userdata=JSON.parse('<?php //echo json_encode($userdata);?>');//if type ==2 you will have user data avaialible
+		var userdata=JSON.parse('<?php echo json_encode($userdata);?>');//if type ==2 you will have user data avaialible
 	}
 			var arraylist=JSON.parse('<?php echo json_encode($courselist);?>');
 			function createcatalogoption(subject,number)
