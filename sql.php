@@ -70,6 +70,46 @@
 
 
 	}
+	function updaterecord($dataarray,$tablename)
+	{
+		$dbname = "myDB";
+		$conn = mysqli_connect("localhost","root","root",$dbname);
+		if (!$conn)
+		{
+			die('Could not connect: ' . mysqli_error());
+		}
+
+		$temparray=loadarray($dataarray,0);
+
+
+
+
+		$sql = "UPDATE $tablename SET enrollment_capacity= '$temparray[12]' ,		enrollment_total = '$temparray[13]' ,		waiting_capacity  = '$temparray[14]',		waiting_total = '$temparray[15]' WHERE coursepre = '$temparray[1]' AND
+		coursenumber ='$temparray[2]' AND
+		coursetype = '$temparray[3]' AND
+		courselecnum = '$temparray[4]';";
+
+
+
+		for($i=1;$i<sizeof($dataarray);$i++)
+		{
+			$temparray=loadarray($dataarray,$i);
+			//echo "multi called ";
+			//print_r($temparray);
+			$sql .= "UPDATE $tablename SET enrollment_capacity= '$temparray[12]' ,		enrollment_total = '$temparray[13]' ,		waiting_capacity  = '$temparray[14]',		waiting_total = '$temparray[15]' WHERE coursepre = '$temparray[1]' AND
+			coursenumber ='$temparray[2]' AND
+			coursetype = '$temparray[3]' AND
+			courselecnum = '$temparray[4]';";
+		}
+
+
+		//print_r ($sql);
+		if ($conn->multi_query($sql) === TRUE) {
+			echo "$temparray[1] $temparray[2] $temparray[3] $temparray[4] updated successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+	}
 	//add the record to sql
 	function addrecord($dataarray,$tablename)
 	{
@@ -224,7 +264,7 @@ function updateuser($username,$password,$json,$tablename)
 	    // 输出每行数据
 			$returnarray=array();
 			while($row = $result->fetch_assoc()) {
-			//	print_r($row);
+				//print_r($row);
 				$returnarray[]=$row;
 			}
 			return $returnarray;
@@ -233,7 +273,7 @@ function updateuser($username,$password,$json,$tablename)
 		}
 		$conn->close();
 	}
-	//searchforcourse('CS','251','courses');
+	//searchforcourse('CS','241','courses');
 	$testarray=array(
 		array(
 			'5980','CS','246','LEC','001',"13:00-14:20",'TTh','Object-Oriented Software Development','UWU','B1','271','Buhr,Peter A','110','126','0','0'

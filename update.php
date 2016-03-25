@@ -6,7 +6,7 @@ function update($coursename,$courseid,$termid)
 
 {
 	$responsearray=searchforcourse($coursename,$courseid,'courses');
-	if($responsearray==false){
+
 		//echo "need update";
 	$urlbase="https://api.uwaterloo.ca/v2/courses/";
 		$key="75f54f72238b7cd7ccadd35716ecf4e8";     //pre dfine user key
@@ -37,7 +37,11 @@ function update($coursename,$courseid,$termid)
 	{
 		$responsearray[]=processresponse($result['data'][$i]);
 	}
+	if($responsearray==false){
 	addrecord($responsearray,'courses');
+	}
+	else{
+		updaterecord($responsearray,'courses');
 	}
 	//print_r($responsearray);
 	return searchforcourse($coursename,$courseid,'courses');
