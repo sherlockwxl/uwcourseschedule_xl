@@ -18,7 +18,7 @@ error_reporting(NULL);
 	$coursearray=array();
 	for($i=0;$i<sizeof($cataloglist);$i++)
 	{
-		if(!is_null($cataloglist[$i])){
+		if($cataloglist[$i]!="null"){
 		$response=update($courselist[$i],$cataloglist[$i],$term);
 			//echo "will update $i ";
 		//print_r($response);

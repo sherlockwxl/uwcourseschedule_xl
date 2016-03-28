@@ -109,6 +109,7 @@
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
+		$conn->close();
 	}
 	//add the record to sql
 	function addrecord($dataarray,$tablename)
@@ -176,7 +177,7 @@
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
-
+		$conn->close();
 
 
 
@@ -226,6 +227,7 @@ function adduser($username,$password,$tablename)
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
 	}
+	$conn->close();
 }
 
 
@@ -244,7 +246,7 @@ function updateuser($username,$password,$json,$tablename)
 		echo "New records update successfully";
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
-	}
+	}$conn->close();
 }
 
 
@@ -285,7 +287,24 @@ function updateuser($username,$password,$json,$tablename)
 	//addrecordforlist will add all course list into database named allcourselist
 
 
+function deletenull($tablename)
+{
+	$dbname = "myDB";
+	$conn = mysqli_connect("localhost","root","root",$dbname);
+	if (!$conn)
+	{
+		die('Could not connect: ' . mysqli_error());
+	}
 
+	$sql = "Delete from $tablename where id = '0' ";
+	if ($conn->query($sql) === TRUE) {
+	echo "delete null successfully";
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+//print_r ($sql);
+$conn->close();
+}
 
 
 
